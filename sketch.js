@@ -138,7 +138,7 @@ function buildDrones(){
 }
 
 function lightningControl() {
-  if(keyDown("DOWN_ARROW")) {
+  if(keyDown("DOWN_ARROW")||keyDown("SPACE") {
     lightning = createSprite(Electrofast.x,Electrofast.y);
     lightning.addImage(lightningImg);
     lightning.velocityX = 10;
