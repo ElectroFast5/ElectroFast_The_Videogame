@@ -4,6 +4,7 @@ let lightning, lightningImg, lightningGroup;
 let drones, dronesImg, dronesGroup;
 let bomb, bombImg;
 let gameOver=false;
+var edges;
 
 function preload() {
   // This creates ElectroFast's in-game animations. It's pretty long!
@@ -27,6 +28,7 @@ function preload() {
 
 function setup() {
   createCanvas(1400, 700);
+  edges = createEdgeSprites();
 
   // The code below forms ElectroFast's size, picture and animation.
   Electrofast = createSprite(700,50,20,20);
@@ -51,6 +53,8 @@ function setup() {
   middlePlatform.addImage(platformImg);
   middlePlatform.scale =0.5;
 
+  // 
+
   //Groups for the gimmicks:
   dronesGroup=createGroup();
   lightningGroup=createGroup();
@@ -65,12 +69,19 @@ function draw() {
   background("cyan");
   controlsAndPhysics();
   buildDrones();
+  lightningControl();
+  console.log(Electrofast.x);
 
   if(gameOver==false){
     drawSprites();
+  } else {
+    stroke("blue");
+    strokeWeight(20);
+    textSize(100);
+    text("Game Over!", width/2, height/2);
   }
 
-  if(bomb.isTouching(lightningGroup)||bomb.isTouching(dronesGroup)){
+  if(bomb.isTouching(lightningGroup)||bomb.isTouching(dronesGroup)||Electrofast.isTouching(dronesGroup)){
     gameOver=true;
   }
 }
@@ -108,17 +119,31 @@ function controlsAndPhysics(){
 
 function buildDrones(){
   if(frameCount%50==0){
-    drones=createSprite(random(1360,width/2),30,);
+    drones=createSprite(random(30,width),30,);
     drones.addImage(dronesImg);
-    drones.scale=0.3;
-    drones.velocityX=-3;
-    drones.velocityY=+3;
-    dronesGroup.collide(leftWall);
-    dronesGroup.collide(rightWall);
-    dronesGroup.collide(ground);
-    dronesGroup.collide(middlePlatform);
-    drones.debug=true;
-    ground.debug=true;
+    drones.scale=0.17;
+    drones.velocityX=-7;
+    drones.velocityY=+7;
+    drones.setCollider("rectangle",0,0,400,300)
     dronesGroup.add(drones);
+    } 
+    dronesGroup.bounceOff(leftWall);
+    dronesGroup.bounceOff(rightWall);
+    dronesGroup.bounceOff(ground);
+    dronesGroup.bounceOff(middlePlatform);
+    dronesGroup.bounceOff(edges);
+    if(dronesGroup.isTouching(lightningGroup)){
+      dronesGroup[0].destroy();
+    }
+}
+
+function lightningControl() {
+  if(keyDown("DOWN_ARROW")) {
+    lightning = createSprite(Electrofast.x,Electrofast.y);
+    lightning.addImage(lightningImg);
+    lightning.velocityX = 10;
+    lightning.lifetime = 50;
+    lightning.scale = 0.5;
+    lightningGroup.add(lightning);
   }
 }
