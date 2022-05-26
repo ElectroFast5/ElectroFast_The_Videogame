@@ -97,7 +97,9 @@ function draw() {
 
   } else {
     // This displays the game-over message.
-    stroke("red");
+    background("red")
+
+    stroke("pink");
     strokeWeight(20);
     textSize(100);
     text("Game Over!", width/2, height/2);
