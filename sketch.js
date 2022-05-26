@@ -3,7 +3,9 @@ var ground, platformImg, leftWall, rightWall, wallImg, middlePlatform;
 let lightning, lightningImg, lightningGroup;
 let drones, dronesImg, dronesGroup;
 let bomb, bombImg;
-let gameOver=false;
+let gameOver = false;
+var score = 0;
+var lives = 3;
 var edges;
 
 function preload() {
@@ -38,7 +40,7 @@ function setup() {
   Electrofast.addAnimation('Backwards',ElectroFastRunBackwardsImg);
   Electrofast.scale = 0.32;
 
-  // The platforms ElectroFast stands on:
+  // The walls and the platforms ElectroFast stands on:
   ground = createSprite(700, 670);
   ground.addImage(platformImg);
   ground.scale = 1.5;
@@ -53,8 +55,6 @@ function setup() {
   middlePlatform.addImage(platformImg);
   middlePlatform.scale =0.5;
 
-  // 
-
   //Groups for the gimmicks:
   dronesGroup=createGroup();
   lightningGroup=createGroup();
@@ -63,34 +63,52 @@ function setup() {
   bomb=createSprite(140,550);
   bomb.addImage(bombImg);
   bomb.scale=0.5;
+  bomb.setCollider("circle",0,27,78)
 }
 
 function draw() { 
   background("cyan");
-  controlsAndPhysics();
-  buildDrones();
-  lightningControl();
-  console.log(Electrofast.x);
 
   if(gameOver==false){
     drawSprites();
-  } else {
+
+    // Displays the score and lives.
+    textSize(30);
     stroke("blue");
+    strokeWeight(7);
+    text("Score: "+score, 1250,30);
+    stroke("green");
+    text("Lives: "+lives, 10,30);
+
+    // Subtracts lives where necessary.
+    if(bomb.isTouching(lightningGroup)||bomb.isTouching(dronesGroup)||Electrofast.isTouching(dronesGroup)) {
+      lives--;
+    }
+
+    // These functions control some of the game's fundementals, such as controls, the drones and the lightning bolts.
+    controlsAndPhysics();
+    buildDrones();
+    lightningControl();
+
+    // This checks if the game has ended.
+    if(lives==0){
+      gameOver=true;
+    }
+
+  } else {
+    // This displays the game-over message.
+    stroke("red");
     strokeWeight(20);
     textSize(100);
     text("Game Over!", width/2, height/2);
   }
-
-  if(bomb.isTouching(lightningGroup)||bomb.isTouching(dronesGroup)||Electrofast.isTouching(dronesGroup)){
-    gameOver=true;
-  }
 }
 
+// This controls Electrofast's movement, jumping, falling and animation changes.
 function controlsAndPhysics(){
   Electrofast.velocityY+=1;
   Electrofast.collide(ground);
   Electrofast.collide(middlePlatform);
-  console.log(Electrofast.x);
 
   // Jumping on the middle platform.
   if(keyDown("UP_ARROW")&&Electrofast.y>380&&Electrofast.y<385&&Electrofast.x>400&&Electrofast.x<1100) {
@@ -117,22 +135,34 @@ function controlsAndPhysics(){
   }
 }
 
+// This creates the drones.
 function buildDrones(){
-  if(frameCount%50==0){
-    drones=createSprite(random(30,width),30,);
+  if(frameCount%70==0){
+    drones=createSprite(random(350,width),30,);
     drones.addImage(dronesImg);
     drones.scale=0.17;
     drones.velocityX=-7;
     drones.velocityY=+7;
-    drones.setCollider("rectangle",0,0,400,300)
+    //drones.setCollider("rectangle",0,0,400,300)
     dronesGroup.add(drones);
     } 
+
     dronesGroup.bounceOff(leftWall);
     dronesGroup.bounceOff(rightWall);
     dronesGroup.bounceOff(ground);
     dronesGroup.bounceOff(middlePlatform);
     dronesGroup.bounceOff(edges);
+
     if(dronesGroup.isTouching(lightningGroup)){
+      dronesGroup[0].destroy();
+      score++;
+    }
+
+    if(dronesGroup.isTouching(bomb)){
+      dronesGroup[0].destroy();
+    }
+
+    if(dronesGroup.isTouching(Electrofast)){
       dronesGroup[0].destroy();
     }
 }
@@ -141,7 +171,7 @@ function lightningControl() {
   if(keyDown("DOWN_ARROW")||keyDown("SPACE")) {
     lightning = createSprite(Electrofast.x,Electrofast.y);
     lightning.addImage(lightningImg);
-    lightning.velocityX = 10;
+    lightning.velocityX = 12;
     lightning.lifetime = 50;
     lightning.scale = 0.5;
     lightningGroup.add(lightning);
