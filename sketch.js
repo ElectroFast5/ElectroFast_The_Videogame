@@ -10,11 +10,11 @@ var edges;
 
 function preload() {
   // This creates ElectroFast's in-game animations. It's pretty long!
-  ElectrofastRunImg = loadAnimation("Images/Electrofast1_jump.svg", "Images/Electrofast2.svg",
-  "Images/Electrofast3.svg", "Images/Electrofast4.svg","Images/Electrofast1_jump.svg","Images/Electrofast2.svg",
-  "Images/Electrofast4.svg");
-  ElectroFastRunBackwardsImg = loadAnimation("Images/Electrofast4.svg", "Images/Electrofast3.svg", "Images/Electrofast2.svg",
-  "Images/Electrofast1_jump.svg", "Images/Electrofast4.svg","Images/Electrofast3.svg","Images/Electrofast2.svg");
+  ElectrofastRunImg = loadAnimation("Images/ElectroFast1_jump.svg", "Images/ElectroFast2.svg",
+  "Images/ElectroFast3.svg", "Images/ElectroFast4.svg","Images/ElectroFast1_jump.svg","Images/ElectroFast2.svg",
+  "Images/ElectroFast4.svg");
+  ElectroFastRunBackwardsImg = loadAnimation("Images/ElectroFast4.svg", "Images/ElectroFast3.svg", "Images/ElectroFast2.svg",
+  "Images/ElectroFast1_jump.svg", "Images/ElectroFast4.svg","Images/ElectroFast3.svg","Images/ElectroFast2.svg");
   ElectrofastStandImg=loadImage('Images/ElectroFast5_stand.svg');
   ElectroFastJumpImg=loadImage('Images/ElectroFast1_jump.svg');
 
