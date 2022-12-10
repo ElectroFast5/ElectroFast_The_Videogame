@@ -10,13 +10,13 @@ var edges;
 
 function preload() {
   // This creates ElectroFast's in-game animations. It's pretty long!
-  ElectrofastRunImg = loadAnimation("https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast1_jump.svg", "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast2.svg",
-  "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast3.svg", "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast4.svg","https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast1_jump.svg","https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast2.svg",
-  "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast4.svg");
-  ElectroFastRunBackwardsImg = loadAnimation("https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast4.svg", "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast3.svg", "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast2.svg",
-  "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast1_jump.svg", "https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast4.svg","https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast3.svg","https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast2.svg");
-  ElectrofastStandImg=loadImage('https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast5_stand.svg');
-  ElectroFastJumpImg=loadImage('https://electrofast5.github.io/ElectroFast_The_Videogame/Images/Electrofast1_jump.svg');
+  ElectrofastRunImg = loadAnimation("Images/Electrofast1_jump.svg", "Images/Electrofast2.svg",
+  "Images/Electrofast3.svg", "Images/Electrofast4.svg","Images/Electrofast1_jump.svg","Images/Electrofast2.svg",
+  "Images/Electrofast4.svg");
+  ElectroFastRunBackwardsImg = loadAnimation("Images/Electrofast4.svg", "Images/Electrofast3.svg", "Images/Electrofast2.svg",
+  "Images/Electrofast1_jump.svg", "Images/Electrofast4.svg","Images/Electrofast3.svg","Images/Electrofast2.svg");
+  ElectrofastStandImg=loadImage('Images/ElectroFast5_stand.svg');
+  ElectroFastJumpImg=loadImage('Images/ElectroFast1_jump.svg');
 
   // The platforms images:
   platformImg = loadImage("Images/Ground_Platform.png");
